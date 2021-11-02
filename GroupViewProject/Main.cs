@@ -12,7 +12,7 @@ namespace GroupViewProject
     {
 
         // Строка подключения к БД
-        string strConnection = @"Data Source=DESKTOP-MU6UFKI\SQLEXPRESS;Initial Catalog=groupall;Integrated Security=True";
+        string strConnection = @"Data Source=DESKTOP-UDQP1SK\SQLEXPRESS;Initial Catalog=groupall;Integrated Security=True";
         
         /// <summary>
         /// Добавления данных о группе 
@@ -88,6 +88,38 @@ namespace GroupViewProject
 
             return groups;
         }
+
+        //internal object DelGroup(Group group)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public void DelGroup(int Id)
+        {
+            // Формируем команду для добавления данных
+            string SqlCmd = $"DELETE FROM [dbo].[group] WHERE IdGroup = {Id};";
+
+            // оборнем код в обработку исключений
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(strConnection))
+                {
+
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand(SqlCmd, connection);
+
+                    // Получаем строки из таблицы
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                }
+            }
+
+
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+           
+        }
     }
 
 
@@ -97,7 +129,7 @@ namespace GroupViewProject
     /// </summary>
     class Group
     {
-        public int idGroup { get; set; }
+        public int IdGroup { get; set; }
 
         public string  NameGroup { get; set; }
 
